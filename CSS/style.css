@@ -1,0 +1,25 @@
+/*GLOBAL*/
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/*HEADER*/
+.header-container {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/*CALCULATOR-SECTION*/
+
+.calculator-container {
+    text-align: center;
+    margin: 0 auto;
+    background-color: #413E3E;
+    width: 200px;
+    height: 200px;
+}
