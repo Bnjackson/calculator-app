@@ -14,7 +14,7 @@ function inputNumber(e) {
 }
 
 function updateDisplay(val) {
-    const currentValue =  display.innerText;
+    const currentValue = display.innerText;
     console.log(currentValue);
     if(display.innerText === "0") {
         display.innerText = val;
@@ -33,18 +33,32 @@ clear.addEventListener("click", clearDisplay);
 
 function clearDisplay() {
     display.textContent = 0;
-
 }
 
 const deleteButton = document.getElementById("delete");
 deleteButton.addEventListener("click", deleteLastNumber);
 
 function deleteLastNumber() {
-    const string = display.textContent;
+    let string = display.textContent;
     if(string !== "0" && string.length === 1) {
         display.textContent = "0";
     }
     else if(string.length > 1 || string !== "0") {
+        display.textContent = display.textContent.substr(0, display.textContent.length -1);
+        console.log("yes");
+    }
+}
+
+const negativeButton = document.getElementById("negative");
+negativeButton.addEventListener("click", plusOrNegative)
+
+function plusOrNegative() {
+    console.log("yes");
+    if(display.textContent.includes("-")) {
+        display.textContent = display.textContent.replace("-" , "");
+    }
+    else {
+        display.textContent = display.textContent + "-";
     }
 }
 
