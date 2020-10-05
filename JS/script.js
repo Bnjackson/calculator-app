@@ -25,8 +25,6 @@ function updateDisplay(val) {
 }
 
 
-
-
 //Special buttons
 const clear = document.getElementById("clear");
 clear.addEventListener("click", clearDisplay);
