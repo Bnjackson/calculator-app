@@ -1,8 +1,9 @@
 const display = document.getElementById("display");
+let valueArray = [];
+let operatorArray = [];
+let newValue;
 
 const numbers = document.getElementsByClassName("numbers");
-console.log(numbers);
-
 for(let i = 0; i < numbers.length; i++) {
     numbers[i].addEventListener("click", inputNumber);
 }
@@ -16,14 +17,36 @@ function inputNumber(e) {
 function updateDisplay(val) {
     const currentValue = display.innerText;
     console.log(currentValue);
-    if(display.innerText === "0") {
+    if(display.innerText === "0" || newValue === true) {
         display.innerText = val;
+        newValue = false;
     }
-    else if(display.innerText.length < 15) {
+    else if(display.innerText.length < 14) {
         display.innerText = currentValue + val;        
     }
 }
 
+const operators = document.getElementsByClassName("operators");
+
+for(let i = 0; i < operators.length; i++) {
+    operators[i].addEventListener("click", addOperator);
+}
+
+function addOperator(e) {
+    newValue = true;
+    const currentOperator = e.target.innerText;
+    valueArray.push(display.innerText);
+    operatorArray.push(e.target.innerText);
+    console.log(valueArray, operatorArray);
+    if(currentOperator === "=") {
+        operate();
+    }
+
+}
+
+function operate() {
+
+}
 
 //Special buttons
 const clear = document.getElementById("clear");
@@ -31,6 +54,8 @@ clear.addEventListener("click", clearDisplay);
 
 function clearDisplay() {
     display.textContent = 0;
+    valueArray = [];
+    operatorArray = [];
 }
 
 const deleteButton = document.getElementById("delete");
@@ -43,7 +68,6 @@ function deleteLastNumber() {
     }
     else if(string.length > 1 || string !== "0") {
         display.textContent = display.textContent.substr(0, display.textContent.length -1);
-        console.log("yes");
     }
 }
 
@@ -51,14 +75,24 @@ const negativeButton = document.getElementById("negative");
 negativeButton.addEventListener("click", plusOrNegative)
 
 function plusOrNegative() {
-    console.log("yes");
     if(display.textContent.includes("-")) {
         display.textContent = display.textContent.replace("-" , "");
     }
-    else {
-        display.textContent = display.textContent + "-";
+    else if(display.textContent !== "0") {
+        display.textContent = "-" + display.textContent;
     }
 }
+
+const floatingPoint = document.getElementById("floating-point");
+floatingPoint.addEventListener("click", addFloatingPoint = () => {
+    const string = display.textContent;
+    if(string.includes(".")) {
+    }
+    else {
+        display.textContent = display.textContent + ".";
+    }
+});
+
 
 
 
