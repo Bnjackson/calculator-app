@@ -1,7 +1,9 @@
 const display = document.getElementById("display");
-let valueArray = [];
-let operatorArray = [];
 let newValue;
+let currentOperator;
+let firstValue;
+let secondValue;
+let result;
 
 const numbers = document.getElementsByClassName("numbers");
 for(let i = 0; i < numbers.length; i++) {
@@ -32,24 +34,60 @@ for(let i = 0; i < operators.length; i++) {
 
 function addOperator(e) {
     newValue = true;
-    const currentOperator = e.target.innerText;
-    valueArray.push(display.innerText);
-    operatorArray.push(e.target.innerText);
-    console.log(valueArray, operatorArray);
+    if(firstValue === undefined) {
+        firstValue = display.innerText;
+    }
+    else if(secondValue === undefined) {
+        secondValue = display.innerText;
+    }
+    else if(firstValue === true && secondValue === true) {
+        operate();
+    }
+    currentOperator = e.target.innerText;
 }
 
 const equals = document.getElementById("equals");
-equals.addEventListener("click", operate = () => {
+equals.addEventListener("click", operate);
 
-});
+function operate() {
+    switch(currentOperator) {
+        case "+":
+            result = Number(firstValue) + Number(secondValue);
+            display.innerText = result;
+            firstValue = display;
+            secondValue = undefined;
+            break;
+        case "-":
+            result = Number(firstValue) - Number(secondValue);
+            display.innerText = result;
+            firstValue = display;
+            secondValue = undefined;
+            break;
+        case "*":
+            result = Number(firstValue) * Number(secondValue);
+            display.innerText = result;
+            firstValue = display;
+            secondValue = undefined;
+            break;
+        case "/":
+            result = Number(firstValue) / Number(secondValue);
+            display.innerText = result;
+            firstValue = display;
+            secondValue = undefined;
+            break;
+        default:
+            display.innerText = "ERROR: SyntaxError";
 
+    }
+}
 
 //Special buttons
 const clear = document.getElementById("clear");
 clear.addEventListener("click", clearDisplay = () => {
     display.textContent = 0;
-    valueArray = [];
-    operatorArray = [];
+    firstValue = undefined;
+    secondValue = undefined;
+    result = undefined;
 });
 
 
@@ -73,7 +111,7 @@ negativeButton.addEventListener("click", plusOrNegative = () => {
     else if(display.textContent !== "0") {
         display.textContent = "-" + display.textContent;
     }
-})
+});
 
 
 const floatingPoint = document.getElementById("floating-point");
