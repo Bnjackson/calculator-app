@@ -1,9 +1,11 @@
 const display = document.getElementById("display");
-let newValue;
-let currentOperator;
-let firstValue;
-let secondValue;
-let result;
+let newValue, 
+    currentOperator, 
+    nextOperator, 
+    firstValue, 
+    secondValue,
+    result,
+    operatorInUse;
 
 const numbers = document.getElementsByClassName("numbers");
 for(let i = 0; i < numbers.length; i++) {
@@ -33,51 +35,52 @@ for(let i = 0; i < operators.length; i++) {
 }
 
 function addOperator(e) {
-    newValue = true;
+    if(e.target.innerText !== "=" && operatorInUse === undefined) {
+        currentOperator = e.target.innerText;
+        console.log(currentOperator);
+        operatorInUse = true;
+    }
     if(firstValue === undefined) {
         firstValue = display.innerText;
+        console.log("this is first value " + firstValue);
     }
-    else if(secondValue === undefined) {
+    else if(secondValue === undefined && e.target.innerText === "=") {
         secondValue = display.innerText;
-    }
-    else if(firstValue === true && secondValue === true) {
+        console.log("this is second value " + secondValue);
         operate();
     }
-    currentOperator = e.target.innerText;
+    else {
+        nextOperator = e.target.innerText;
+        console.log(nextOperator)
+    }
+    newValue = true;
 }
-
-const equals = document.getElementById("equals");
-equals.addEventListener("click", operate);
 
 function operate() {
     switch(currentOperator) {
         case "+":
             result = Number(firstValue) + Number(secondValue);
-            display.innerText = result;
-            firstValue = display;
-            secondValue = undefined;
             break;
         case "-":
             result = Number(firstValue) - Number(secondValue);
-            display.innerText = result;
-            firstValue = display;
-            secondValue = undefined;
             break;
         case "*":
             result = Number(firstValue) * Number(secondValue);
-            display.innerText = result;
-            firstValue = display;
-            secondValue = undefined;
             break;
         case "/":
             result = Number(firstValue) / Number(secondValue);
-            display.innerText = result;
-            firstValue = display;
-            secondValue = undefined;
             break;
         default:
             display.innerText = "ERROR: SyntaxError";
 
+    }
+    display.innerText = result;
+    firstValue = result;
+    secondValue = undefined;
+    operatorInUse = undefined;
+    if(nextOperator !== undefined) {
+        currentOperator = nextOperator;
+        nextOperator === undefined;
     }
 }
 
@@ -90,7 +93,6 @@ clear.addEventListener("click", clearDisplay = () => {
     result = undefined;
 });
 
-
 const deleteButton = document.getElementById("delete");
 deleteButton.addEventListener("click", deleteLastNumber = () => {
     let string = display.textContent;
@@ -102,7 +104,6 @@ deleteButton.addEventListener("click", deleteLastNumber = () => {
     }
 });
 
-
 const negativeButton = document.getElementById("negative");
 negativeButton.addEventListener("click", plusOrNegative = () => {
     if(display.textContent.includes("-")) {
@@ -113,7 +114,6 @@ negativeButton.addEventListener("click", plusOrNegative = () => {
     }
 });
 
-
 const floatingPoint = document.getElementById("floating-point");
 floatingPoint.addEventListener("click", addFloatingPoint = () => {
     const string = display.textContent;
@@ -123,50 +123,3 @@ floatingPoint.addEventListener("click", addFloatingPoint = () => {
         display.textContent = display.textContent + ".";
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-const addition = (first, second) =>  {
-    return first + second;
-};
-
-const subtraction = (first, second ) => {
-    return first - second;
-};
-
-const multiply = (first, second) => {
-    return first * second;
-};
-
-const divide = (first, second) => {
-    return first / second;
-};
-
-const num1 = 10;
-const num2 = 10;
-
-console.log(addition(num1, num2));
-console.log(subtraction(num1, num2));
-console.log(multiply(num1, num2));
-console.log(divide(num1, num2));
-*/
