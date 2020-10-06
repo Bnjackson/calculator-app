@@ -10,13 +10,11 @@ for(let i = 0; i < numbers.length; i++) {
 
 function inputNumber(e) {
     let value = e.target.innerText;
-    console.log(value);
     updateDisplay(value);
 }
 
 function updateDisplay(val) {
     const currentValue = display.innerText;
-    console.log(currentValue);
     if(display.innerText === "0" || newValue === true) {
         display.innerText = val;
         newValue = false;
@@ -38,30 +36,25 @@ function addOperator(e) {
     valueArray.push(display.innerText);
     operatorArray.push(e.target.innerText);
     console.log(valueArray, operatorArray);
-    if(currentOperator === "=") {
-        operate();
-    }
-
 }
 
-function operate() {
+const equals = document.getElementById("equals");
+equals.addEventListener("click", operate = () => {
 
-}
+});
+
 
 //Special buttons
 const clear = document.getElementById("clear");
-clear.addEventListener("click", clearDisplay);
-
-function clearDisplay() {
+clear.addEventListener("click", clearDisplay = () => {
     display.textContent = 0;
     valueArray = [];
     operatorArray = [];
-}
+});
+
 
 const deleteButton = document.getElementById("delete");
-deleteButton.addEventListener("click", deleteLastNumber);
-
-function deleteLastNumber() {
+deleteButton.addEventListener("click", deleteLastNumber = () => {
     let string = display.textContent;
     if(string !== "0" && string.length === 1) {
         display.textContent = "0";
@@ -69,19 +62,19 @@ function deleteLastNumber() {
     else if(string.length > 1 || string !== "0") {
         display.textContent = display.textContent.substr(0, display.textContent.length -1);
     }
-}
+});
+
 
 const negativeButton = document.getElementById("negative");
-negativeButton.addEventListener("click", plusOrNegative)
-
-function plusOrNegative() {
+negativeButton.addEventListener("click", plusOrNegative = () => {
     if(display.textContent.includes("-")) {
         display.textContent = display.textContent.replace("-" , "");
     }
     else if(display.textContent !== "0") {
         display.textContent = "-" + display.textContent;
     }
-}
+})
+
 
 const floatingPoint = document.getElementById("floating-point");
 floatingPoint.addEventListener("click", addFloatingPoint = () => {
