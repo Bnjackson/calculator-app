@@ -1,3 +1,4 @@
+//Display
 const display = document.getElementById("display");
 let newValue, 
     currentOperator, 
@@ -9,13 +10,11 @@ let newValue,
 
 const numbers = document.getElementsByClassName("numbers");
 for(let i = 0; i < numbers.length; i++) {
-    numbers[i].addEventListener("click", inputNumber);
-}
-
-function inputNumber(e) {
-    let value = e.target.innerText;
-    updateDisplay(value);
-}
+    numbers[i].addEventListener("click", inputNumber = (e) => {
+        let value = e.target.innerText;
+        updateDisplay(value);
+    });
+};
 
 function updateDisplay(val) {
     const currentValue = display.innerText;
@@ -28,36 +27,35 @@ function updateDisplay(val) {
     }
 }
 
+//Operation
 const operators = document.getElementsByClassName("operators");
 
 for(let i = 0; i < operators.length; i++) {
-    operators[i].addEventListener("click", addOperator);
-}
-
-function addOperator(e) {
-    if(e.target.innerText !== "=" && operatorInUse === undefined) {
-        currentOperator = e.target.innerText;
-        operatorInUse = true;
-        console.log(currentOperator);
-    }
-    if(firstValue === undefined) {
-        firstValue = display.innerText;
-        console.log("this is first value " + firstValue);
-    }
-    else if(secondValue === undefined && e.target.innerText !== currentOperator) {
-        secondValue = display.innerText;
-        nextOperator = e.target.innerText;
-        operate();
-    }
-    else if(currentOperator === "=") {
-        secondValue = display.innerText;
-        operate();
-    }
-    else {
-        nextOperator = e.target.innerText;
-    }
-    newValue = true;
-}
+    operators[i].addEventListener("click", addOperator = (e) => {
+        if(e.target.innerText !== "=" && operatorInUse === undefined) {
+            currentOperator = e.target.innerText;
+            operatorInUse = true;
+            console.log(currentOperator);
+        }
+        if(firstValue === undefined) {
+            firstValue = display.innerText;
+            console.log("this is first value " + firstValue);
+        }
+        else if(secondValue === undefined) {
+            secondValue = display.innerText;
+            nextOperator = e.target.innerText;
+            operate();
+        }
+        else if(currentOperator === "=") {
+            secondValue = display.innerText;
+            operate();
+        }
+        else {
+            nextOperator = e.target.innerText;
+        }
+        newValue = true;
+    });
+};
 
 function operate() {
     switch(currentOperator) {
@@ -76,6 +74,10 @@ function operate() {
         default:
             display.innerText = "ERROR: SyntaxError";
     }
+    if(Number(result.toString().length) > 14) {
+        result = "ERROR";
+        console.log("error");
+    };
     display.innerText = result;
     firstValue = result;
     secondValue = undefined;
