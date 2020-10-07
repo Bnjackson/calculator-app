@@ -15,13 +15,13 @@
 }
 
 /*CALCULATOR-SECTION*/
-
 .calculator-container {
     text-align: center;
     margin: 0 auto;
     background-color: #413E3E;
     width: 400px;
     height: 600px;
+    margin-bottom: 20px;
 }
 
 .calculator-display {
@@ -76,4 +76,17 @@
 
 .zero {
     grid-column: 1/3;
+}
+
+/*INFO*/
+.spam-style {
+   font-weight: bold; 
+   line-height: 1.6;
+}
+
+.info-container {
+    text-align: center;
+    margin: 0 auto;
+    width: 60%;
+    line-height: 1.6;
 }
