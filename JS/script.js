@@ -37,21 +37,24 @@ for(let i = 0; i < operators.length; i++) {
 function addOperator(e) {
     if(e.target.innerText !== "=" && operatorInUse === undefined) {
         currentOperator = e.target.innerText;
-        console.log(currentOperator);
         operatorInUse = true;
+        console.log(currentOperator);
     }
     if(firstValue === undefined) {
         firstValue = display.innerText;
         console.log("this is first value " + firstValue);
     }
-    else if(secondValue === undefined && e.target.innerText === "=") {
+    else if(secondValue === undefined && e.target.innerText !== currentOperator) {
         secondValue = display.innerText;
-        console.log("this is second value " + secondValue);
+        nextOperator = e.target.innerText;
+        operate();
+    }
+    else if(currentOperator === "=") {
+        secondValue = display.innerText;
         operate();
     }
     else {
         nextOperator = e.target.innerText;
-        console.log(nextOperator)
     }
     newValue = true;
 }
@@ -72,15 +75,18 @@ function operate() {
             break;
         default:
             display.innerText = "ERROR: SyntaxError";
-
     }
     display.innerText = result;
     firstValue = result;
     secondValue = undefined;
     operatorInUse = undefined;
+    currentOperator = undefined;
     if(nextOperator !== undefined) {
         currentOperator = nextOperator;
-        nextOperator === undefined;
+        nextOperator = undefined;
+        operatorInUse = true;
+        console.log("next operator is " + nextOperator);
+        console.log("currentOperator is " + currentOperator);
     }
 }
 
@@ -91,6 +97,9 @@ clear.addEventListener("click", clearDisplay = () => {
     firstValue = undefined;
     secondValue = undefined;
     result = undefined;
+    operatorInUse = undefined;
+    currentOperator = undefined;
+    nextOperator === undefined;
 });
 
 const deleteButton = document.getElementById("delete");
